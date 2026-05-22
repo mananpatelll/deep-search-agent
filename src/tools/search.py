@@ -1,3 +1,4 @@
+# search tool, used to search latest information
 import os
 from dotenv import load_dotenv
 
