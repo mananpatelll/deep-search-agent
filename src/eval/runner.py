@@ -17,19 +17,22 @@ def run_eval(agent, judge, questions,  question_col="problem", gold_col="answer"
         question = row[question_col]
         gold = row[gold_col]
 
-        predicted = agent(question)
+        result = agent(question)
+        tool_uses = result["tool_uses"]
+        predicted = result["answer"]
         verdict = judge(question, gold, predicted)
         results.append({
             "question": question,
             "gold": gold,
             "predicted": predicted,
+            "tool_uses": tool_uses,
             "verdict": verdict,
         })
     return results
 
 
 if __name__ == "__main__":
-    from src.agent import ask
+    from src.agents.basic import ask
     from src.eval.judge import judge
     from src.eval.metrics import compute_metrics
     dev = pd.read_csv("data/simpleqa_verified.csv")

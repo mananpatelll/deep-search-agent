@@ -1,3 +1,5 @@
+# Basic agent without any custom framework for eval
+
 """Basic single-tool research agent."""
 import os
 from dotenv import load_dotenv
@@ -29,7 +31,21 @@ def ask(question: str) -> str:
     result = agent.invoke({
         "messages": [{"role": "user", "content": question}]
     })
-    return result["messages"][-1].content
+    final_ans = result["messages"][-1].content
+    tool_uses = []  # Extract tool calls and their results from the message histort
+    for msg in result["messages"]:
+        # Tool call
+        if hasattr(msg, "tool_calls") and msg.tool_calls:
+            for tc in msg.tool_calls:
+                tool_uses.append(
+                    {"type": "call", "tool": tc["name"], "args": tc["args"]})
+            # Tool result
+            if msg.__class__.__name__ == "ToolMessage":
+                tool_uses.append({"type": "result", "conent": msg.content})
+    return {
+        "answer": final_ans,
+        "tool_uses": tool_uses
+    }
 
 
 if __name__ == "__main__":
