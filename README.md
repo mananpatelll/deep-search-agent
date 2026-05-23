@@ -1,2 +1,3 @@
 # deep-search-agent
-Building a custom deep research agent that answers user queries with evidence from the web and uses reasoning logic
+
+Building a modular deep research agent with smart query planning, web retrieval, and evidence-based answer generation
