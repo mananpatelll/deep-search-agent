@@ -26,7 +26,7 @@ agent = create_agent(
 )
 
 
-def ask(question: str) -> str:
+def ask(question: str) -> dict:
     """Run the agent on a single question, return the final answer."""
     result = agent.invoke({
         "messages": [{"role": "user", "content": question}]
@@ -39,9 +39,9 @@ def ask(question: str) -> str:
             for tc in msg.tool_calls:
                 tool_uses.append(
                     {"type": "call", "tool": tc["name"], "args": tc["args"]})
-            # Tool result
-            if msg.__class__.__name__ == "ToolMessage":
-                tool_uses.append({"type": "result", "conent": msg.content})
+        # Tool result
+        if msg.__class__.__name__ == "ToolMessage":
+            tool_uses.append({"type": "result", "content": msg.content})
     return {
         "answer": final_ans,
         "tool_uses": tool_uses
