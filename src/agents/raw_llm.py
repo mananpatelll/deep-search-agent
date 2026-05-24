@@ -16,7 +16,7 @@ def ask(question: str) -> dict:
         (
             "user",
             """
-                question : {question}
+              {question}
             """
         )
     ])
