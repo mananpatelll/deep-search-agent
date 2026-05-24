@@ -30,7 +30,7 @@ def ask(question: str) -> dict:
     """Run the agent on a single question, return the final answer."""
     result = agent.invoke({
         "messages": [{"role": "user", "content": question}]
-    })
+    }, config={"recursion_limit": 25})  # recursion limit
     final_ans = result["messages"][-1].content
     tool_uses = []  # Extract tool calls and their results from the message histort
     for msg in result["messages"]:
