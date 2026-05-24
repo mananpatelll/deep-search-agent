@@ -5,7 +5,7 @@ from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
 load_dotenv()
-model = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+model = ChatOpenAI(model="gpt-4o", temperature=0)
 
 
 class Judgement(BaseModel):
@@ -17,13 +17,10 @@ You are an impartial judge evaluating answers to factual questions.
 
 Compare the agent's response to the ground truth and return exactly one verdict:
 "correct", "incorrect", or "not_attempted".
-
-- "correct": the response commits to an answer that matches the ground truth in meaning. Different wording, formatting, or precision is fine.
-- "incorrect": the response commits to a specific answer that contradicts the ground truth, even if hedged.
-- "not_attempted": the response does not commit to any specific answer (e.g., "I don't know", "I cannot determine").
-
-Hedging does not change the verdict: a hedged wrong answer is still incorrect, and a hedged right answer is still correct."""
-
+    "correct" - the agent gave exact answer as the ground truth. 
+    "incorrect" - The agent gave an answer that does not match the ground truth.
+    "not_attempted" - The agent explicitly refused or did not give any answer to the question, for example - "I don't know", "I cannot determine", "I don't have that information", etc..
+"""
 JUDGE_USER_PROMPT = """\
 Question: {question}
 
