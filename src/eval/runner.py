@@ -67,7 +67,7 @@ def run_eval(agent, judge, questions,  question_col="problem", gold_col="answer"
 
 
 if __name__ == "__main__":
-    from src.agents.basic import ask
+    from src.agents.with_search import ask
     from src.eval.judge import judge
     from src.eval.metrics import compute_metrics
     dev = pd.read_csv("data/simpleqa_verified.csv")
