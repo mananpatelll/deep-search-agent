@@ -1,6 +1,4 @@
-# Basic agent without any custom framework for eval
-
-"""Basic single-tool research agent."""
+"""Single-tool research agent using DuckDuckGo for web search."""
 import os
 from dotenv import load_dotenv
 
