@@ -1,20 +1,11 @@
 # runs search agent on each question, judges and collects results.
-import json
 import random
 import time
-from pathlib import Path
-from datetime import datetime
-
-import pandas as pd
 from tqdm import tqdm
 # keep track of API usage
 from langchain_community.callbacks.manager import get_openai_callback
 
 random.seed(42)
-
-timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-output_dir = Path("data/results")
-output_dir.mkdir(parents=True, exist_ok=True)
 
 
 def run_eval(agent, judge, questions,  question_col="problem", gold_col="answer"):
@@ -64,23 +55,3 @@ def run_eval(agent, judge, questions,  question_col="problem", gold_col="answer"
             "error": error
         })
     return results
-
-
-if __name__ == "__main__":
-    from src.agents.with_search import ask
-   # from src.agents.raw_llm import ask
-    from src.eval.judge import judge
-    from src.eval.metrics import compute_metrics
-    dev = pd.read_csv("data/simpleqa_verified.csv")
-    dev_subset = dev.sample(n=5,  random_state=42)  # taking subset for now
-
-    results = run_eval(agent=ask, judge=judge, questions=dev_subset)
-    metrics = compute_metrics(results)
-    metrics_path = output_dir / f"baseline_metrics_{timestamp}.json"
-    result_path = output_dir / f"baseline_results_{timestamp}.json"
-
-    with open(result_path, "w") as f:
-        json.dump(results, f, indent=2)
-    with open(metrics_path, "w") as f:
-        json.dump(metrics, f, indent=2)
-    print("Doneeeeeeeeeeeee")
