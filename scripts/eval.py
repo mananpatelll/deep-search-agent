@@ -98,9 +98,9 @@ def main():
     metrics["timestamp"] = timestamp
 
     # Save
-    with open(result_path, "w") as f:
+    with open(result_path, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
-    with open(metrics_path, "w") as f:
+    with open(metrics_path, "w", encoding="utf-8") as f:
         json.dump(metrics, f, indent=2)
     print("Doneeeeeeeeeeeee")
 
