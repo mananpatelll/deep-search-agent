@@ -17,7 +17,7 @@ You are an impartial judge evaluating answers to factual questions.
 
 Compare the agent's response to the ground truth and return exactly one verdict:
 "correct", "incorrect", or "not_attempted".
-    "correct" - the agent gave exact answer as the ground truth. 
+    "correct" - The agent gave the exact answer as the ground truth. 
     "incorrect" - The agent gave an answer that does not match the ground truth.
     "not_attempted" - The agent explicitly refused or did not give any answer to the question, for example - "I don't know", "I cannot determine", "I don't have that information", etc..
 """
