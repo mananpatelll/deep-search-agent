@@ -58,7 +58,7 @@ def run_eval(agent, judge, questions,  question_col="problem", gold_col="answer"
             "tool_uses": tool_uses,
             "verdict": verdict,
             "latency_s": round(latency_s, 2),
-            "agemt_cost": round(agent_cost, 5),
+            "agent_cost": round(agent_cost, 5),
             "judge_cost": round(judge_cost, 5),
             "total_cost": round(agent_cost + judge_cost, 5),
             "error": error
@@ -68,10 +68,11 @@ def run_eval(agent, judge, questions,  question_col="problem", gold_col="answer"
 
 if __name__ == "__main__":
     from src.agents.with_search import ask
+   # from src.agents.raw_llm import ask
     from src.eval.judge import judge
     from src.eval.metrics import compute_metrics
     dev = pd.read_csv("data/simpleqa_verified.csv")
-    dev_subset = dev.sample(n=100,  random_state=42)  # taking subset for now
+    dev_subset = dev.sample(n=5,  random_state=42)  # taking subset for now
 
     results = run_eval(agent=ask, judge=judge, questions=dev_subset)
     metrics = compute_metrics(results)
